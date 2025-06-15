@@ -1,0 +1,23 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "CustomPlaceActors",
+	"Description": "A simple tool for easily adding custom categories to the \"Place Actors\" panel / menu.",
+	"Category": "Place Actors Panel",
+	"CreatedBy": "Levi Spevakow",
+	"CreatedByURL": "https://github.com/levispev",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"EngineVersion": "5.5.0",
+	"CanContainContent": true,
+	"Installed": true,
+	"Modules": [
+		{
+			"Name": "CustomPlaceActors",
+			"Type": "Editor",
+			"LoadingPhase": "PostEngineInit"
+		}
+	]
+}
