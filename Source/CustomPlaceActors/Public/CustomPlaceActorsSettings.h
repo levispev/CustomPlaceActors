@@ -21,16 +21,16 @@ struct FCustomPlacementCategoryData
 	GENERATED_BODY()
 
 	// Displayed name for category.
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Place Actors Category")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Place Actors Category")
 	FString CategoryName;
 	// Displayed icon for category.
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Place Actors Category")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Place Actors Category")
 	TObjectPtr<UTexture2D> CategoryIcon = nullptr;
 	// Sorting order when displayed
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Place Actors Category")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Place Actors Category")
 	int SortOrder = 0;
     // Soft reference array of classes to display in category.
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Place Actors Category")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Place Actors Category")
 	TArray<TSoftClassPtr<AActor>> PlaceCategoryClasses;
 };
 

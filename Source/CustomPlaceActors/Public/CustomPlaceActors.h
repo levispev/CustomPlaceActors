@@ -35,7 +35,7 @@ private:
 	void UpdateCategories();
 	
 	FSlateIcon CreateSlateIcon(const FCustomPlacementCategoryData& CategoryData);
-	FName GenerateUniquePlacementHandle(const FString& CategoryName);
+	static FName GenerateUniquePlacementHandle(const FString& CategoryName);
 
 	UCustomPlaceActorsSettings* Settings = nullptr;
 
@@ -43,7 +43,7 @@ private:
 	TSharedPtr<FSlateStyleSet> StyleSet;
 	// Unique handles for each registered category
 	TArray<FName> UniqueHandles;
-
+	// Unique ID's for all actor entries
 	TArray<FPlacementModeID> UniqueActorIDs;
 	
 };

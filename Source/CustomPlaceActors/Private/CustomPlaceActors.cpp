@@ -17,7 +17,6 @@ DEFINE_LOG_CATEGORY(LogCustomPlaceActors);
 
 void FCustomPlaceActorsModule::StartupModule()
 {
-#if UE_EDITOR
 	UE_LOG(LogCustomPlaceActors, Log, TEXT("Custom Place Actors Module Startup"));
 	if (IPlacementModeModule::IsAvailable())
 	{
@@ -25,23 +24,23 @@ void FCustomPlaceActorsModule::StartupModule()
 		RegisterCategories();
 		Settings->OnCategoriesUpdatedDelegate().BindRaw(this, &FCustomPlaceActorsModule::UpdateCategories);
 	}
-#endif
 }
 
 void FCustomPlaceActorsModule::ShutdownModule()
 {
-#if UE_EDITOR
 	// This function may be called during shutdown to clean up your module.  For modules that support dynamic reloading,
 	// we call this function before unloading the module.
-
 	if (StyleSet.IsValid())
 	{
 		FSlateStyleRegistry::UnRegisterSlateStyle(StyleSet->GetStyleSetName());
 		StyleSet.Reset();
 	}
+
+	UnregisterCategories();
+
+	Settings->OnCategoriesUpdatedDelegate().Unbind();
 	
 	UE_LOG(LogCustomPlaceActors, Log, TEXT("Custom Place Actors Module Shutdown"));
-#endif
 }
 
 void FCustomPlaceActorsModule::RegisterCustomPlacementCategory(const FCustomPlacementCategoryData& CategoryData)
@@ -80,7 +79,6 @@ void FCustomPlaceActorsModule::RegisterCustomPlacementCategory(const FCustomPlac
 
 void FCustomPlaceActorsModule::RegisterCustomPlacementActors(const FCustomPlacementCategoryData& CategoryData, FName UniqueHandle)
 {
-#if UE_EDITOR
 	for (TSoftClassPtr<AActor> actorClass : CategoryData.PlaceCategoryClasses)
 	{
 		// Attempt to synchronously load class from soft pointer
@@ -103,7 +101,6 @@ void FCustomPlaceActorsModule::RegisterCustomPlacementActors(const FCustomPlacem
 			UE_LOG(LogCustomPlaceActors, Warning, TEXT("Failed to load actor class for category '%s'!"), *CategoryData.CategoryName);
 		}
 	}
-#endif
 }
 
 void FCustomPlaceActorsModule::UnregisterCategories()
