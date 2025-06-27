@@ -1,3 +1,10 @@
+[![GitHub license](https://img.shields.io/github/v/release/levispev/CustomPlaceActors
+)](https://github.com/levispev/CustomPlaceActors/releases)
+[![GitHub license](https://img.shields.io/github/license/levispev/CustomPlaceActors
+)](https://github.com/levispev/CustomPlaceActors/blob/master/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/levispev/CustomPlaceActors)](https://github.com/levispev/CustomPlaceActors/stargazers)
+![UE5](https://img.shields.io/badge/UE5-5.0+-lightgrey)
+
 <br/>
 <div align="center">
   <img src="Resources/Icon128.png" alt="Logo" width="128" height="128">
