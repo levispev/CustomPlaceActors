@@ -35,7 +35,7 @@ private:
 	void UpdateCategories();
 	
 	FSlateIcon CreateSlateIcon(const FCustomPlacementCategoryData& CategoryData);
-	static FName GenerateUniquePlacementHandle(const FString& CategoryName);
+	static FName GenerateUniquePlacementHandle(const FText& CategoryName);
 
 	UCustomPlaceActorsSettings* Settings = nullptr;
 

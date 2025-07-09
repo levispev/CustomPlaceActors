@@ -10,6 +10,7 @@
 
 #include "IPlacementModeModule.h"
 #include "Styling/SlateStyleRegistry.h"
+#include "Misc/EngineVersionComparison.h"
 
 DEFINE_LOG_CATEGORY(LogCustomPlaceActors);
 
@@ -46,7 +47,7 @@ void FCustomPlaceActorsModule::ShutdownModule()
 void FCustomPlaceActorsModule::RegisterCustomPlacementCategory(const FCustomPlacementCategoryData& CategoryData)
 {
 	// Display name
-	FText displayName = FText::FromString(CategoryData.CategoryName);
+	FText displayName = CategoryData.CategoryName;
 	FSlateIcon icon = CreateSlateIcon(CategoryData);
 	// Unique handle
 	FName uniqueHandle = GenerateUniquePlacementHandle(CategoryData.CategoryName);
@@ -61,6 +62,12 @@ void FCustomPlaceActorsModule::RegisterCustomPlacementCategory(const FCustomPlac
 		tag,
 		CategoryData.SortOrder
 		);
+
+	// Short hand names were introduced in UE 5.5
+#if UE_VERSION_NEWER_THAN(5, 5, 0)
+	// Set optional short display name
+	categoryInfo.ShortDisplayName = CategoryData.ShortCategoryName;
+#endif
 	
 	// Registering category
 	if (IPlacementModeModule::Get().RegisterPlacementCategory(categoryInfo))
@@ -94,11 +101,11 @@ void FCustomPlaceActorsModule::RegisterCustomPlacementActors(const FCustomPlacem
 				UniqueActorIDs.Add(id.GetValue());
 			}
 			
-			UE_LOG(LogCustomPlaceActors, Log, TEXT("Registered actor placement item '%s' for category '%s'"), *loadedClass->GetName(), *CategoryData.CategoryName);
+			UE_LOG(LogCustomPlaceActors, Log, TEXT("Registered actor placement item '%s' for category '%s'"), *loadedClass->GetName(), *CategoryData.CategoryName.ToString());
 		}
 		else
 		{
-			UE_LOG(LogCustomPlaceActors, Warning, TEXT("Failed to load actor class for category '%s'!"), *CategoryData.CategoryName);
+			UE_LOG(LogCustomPlaceActors, Warning, TEXT("Failed to load actor class for category '%s'!"), *CategoryData.CategoryName.ToString());
 		}
 	}
 }
@@ -171,11 +178,11 @@ FSlateIcon FCustomPlaceActorsModule::CreateSlateIcon(const FCustomPlacementCateg
 	return FSlateIcon();
 }
 
-FName FCustomPlaceActorsModule::GenerateUniquePlacementHandle(const FString& CategoryName)
+FName FCustomPlaceActorsModule::GenerateUniquePlacementHandle(const FText& CategoryName)
 {
 	// Generate a unique handle based on name and GUID
 	FGuid guid = FGuid::NewGuid();
-	FString uniqueString = FString::Printf(TEXT("%s_%s"), *CategoryName, *guid.ToString());
+	FString uniqueString = FString::Printf(TEXT("%s_%s"), *CategoryName.ToString(), *guid.ToString());
 
 	return FName(*uniqueString);
 }

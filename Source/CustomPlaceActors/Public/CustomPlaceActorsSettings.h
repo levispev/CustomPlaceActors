@@ -20,16 +20,19 @@ struct FCustomPlacementCategoryData
 {
 	GENERATED_BODY()
 
-	// Displayed name for category.
+	// Displayed name for the category.
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Place Actors Category")
-	FString CategoryName;
-	// Displayed icon for category.
+	FText CategoryName;
+	// Optional shorthand for the category name. (will be used in the "Place Actors" panel (UE5.5+))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, DisplayName = "Short Category Name (optional)", Category = "Place Actors Category")
+	FText ShortCategoryName;
+	// Displayed icon for the category.
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Place Actors Category")
 	TObjectPtr<UTexture2D> CategoryIcon = nullptr;
-	// Sorting order when displayed
+	// Sorting order for the category when displayed.
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Place Actors Category")
 	int SortOrder = 0;
-    // Soft reference array of classes to display in category.
+    // Soft reference array of classes to display in the category.
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Place Actors Category")
 	TArray<TSoftClassPtr<AActor>> PlaceCategoryClasses;
 };
